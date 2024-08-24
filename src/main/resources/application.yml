@@ -1,0 +1,21 @@
+spring:
+  mvc:
+    cors:
+      allowed-origins: "*"
+      allowed-methods: "GET,POST,PUT,DELETE,OPTIONS"
+      allowed-headers: "*"
+      allow-credentials: false
+  application:
+    name: PokesApiConnection
+debug: true
+application:
+  http-client:
+    qori:
+      cross:
+        pokeApi:
+          baseUrl: https://pokeapi.co/api/v2/
+          connectTimeout: 30000
+          readTimeout: 30000
+          writeTimeout: 30000
+          component:
+            defaultApi: poke-api

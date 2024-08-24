@@ -1,10 +1,9 @@
 package com.qori.tech.ux.pokes.business;
 
-import com.qori.tech.ux.pokes.model.api.listallpokes.request.ListAllPokesRequest;
 import com.qori.tech.ux.pokes.model.api.listallpokes.response.ListAllPokesResponse;
 import com.qori.tech.ux.pokes.util.header.ApiHeader;
 import org.springframework.http.ResponseEntity;
-import reactor.core.publisher.Mono;
+import reactor.core.publisher.Flux;
 
 /**
  * <p>This interface is used like service for the validate account.</p>
@@ -32,5 +31,5 @@ import reactor.core.publisher.Mono;
  * <p><b>Version</b>: 1.0.0</p>
  */
 public interface ListAllService {
-  Mono<ResponseEntity<ListAllPokesResponse>> process(ApiHeader apiHeader, ListAllPokesRequest request);
+  Flux<ResponseEntity<ListAllPokesResponse>> process(ApiHeader apiHeader);
 }

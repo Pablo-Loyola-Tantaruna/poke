@@ -15,7 +15,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.DataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 /**
@@ -51,51 +56,51 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class SearchController {
 
-    @InitBinder
-    public void initBinder(DataBinder dataBinder) {
-        dataBinder.setDisallowedFields();
-    }
+  @InitBinder
+  public void initBinder(DataBinder dataBinder) {
+    dataBinder.setDisallowedFields();
+  }
 
-    /**
-     * This method is to search the pokemon.
-     *
-     * @param apiHeader ApiHeader.
-     * @param SearchPokeRequest SearchPokeRequest.
-     * @return {link ResponseMessage}
-     */
-    @GetMapping(
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(
-            tags = "AccountsResponse",
-            summary = "Search",
-            description = "classpath:swagger/notes/search.md",
-            responses = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "Pokemons found",
-                            content = @Content(schema = @Schema(implementation = SearchPokeResponse.class))),
-                    @ApiResponse(
-                            responseCode = "400",
-                            description = "Bad Request",
-                            content = @Content(schema = @Schema(implementation = Exception.class))),
-                    @ApiResponse(
-                            responseCode = "403",
-                            description = "Account already exist",
-                            content = @Content(schema = @Schema(implementation = Exception.class))),
-                    @ApiResponse(
-                            responseCode = "500",
-                            description = "Internal Server Error",
-                            content = @Content(schema = @Schema(implementation = Exception.class))),
-                    @ApiResponse(
-                            responseCode = "503",
-                            description = "Service Unavailable",
-                            content = @Content(schema = @Schema(implementation = Exception.class)))
-            })
-    @ResponseStatus(HttpStatus.OK)
-    public Mono<ResponseEntity<ResponseMessage>> search(
-            @ParameterObject @RequestHeader ApiHeader apiHeader,
-            @RequestBody SearchPokeRequest SearchPokeRequest) {
-        return SearchPokeService.process(apiHeader, SearchPokeRequest);
-    }
+  /*
+   * This method is to search the pokemon.
+   *
+   * @param apiHeader ApiHeader.
+   * @param SearchPokeRequest SearchPokeRequest.
+   * @return {link ResponseMessage}
+   *
+  @GetMapping(
+      consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  @Operation(
+      tags = "AccountsResponse",
+      summary = "Search",
+      description = "classpath:swagger/notes/search.md",
+      responses = {
+          @ApiResponse(
+              responseCode = "200",
+              description = "Pokemons found",
+              content = @Content(schema = @Schema(implementation = SearchPokeResponse.class))),
+          @ApiResponse(
+              responseCode = "400",
+              description = "Bad Request",
+              content = @Content(schema = @Schema(implementation = Exception.class))),
+          @ApiResponse(
+              responseCode = "403",
+              description = "Account already exist",
+              content = @Content(schema = @Schema(implementation = Exception.class))),
+          @ApiResponse(
+              responseCode = "500",
+              description = "Internal Server Error",
+              content = @Content(schema = @Schema(implementation = Exception.class))),
+          @ApiResponse(
+              responseCode = "503",
+              description = "Service Unavailable",
+              content = @Content(schema = @Schema(implementation = Exception.class)))
+      })
+  @ResponseStatus(HttpStatus.OK)
+  public Mono<ResponseEntity<ResponseMessage>> search(
+      @ParameterObject @RequestHeader ApiHeader apiHeader,
+      @RequestBody SearchPokeRequest SearchPokeRequest) {
+    return SearchPokeService.process(apiHeader, SearchPokeRequest);
+  }*/
 }

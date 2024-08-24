@@ -1,8 +1,7 @@
 package com.qori.tech.ux.pokes.expose.web;
 
 import com.qori.tech.ux.pokes.business.ListAllService;
-import com.qori.tech.ux.pokes.framework.body.ResponseMessage;
-import com.qori.tech.ux.pokes.model.api.listallpokes.request.ListAllPokesRequest;
+import com.qori.tech.ux.pokes.framework.header.manager.RequestHeaderModel;
 import com.qori.tech.ux.pokes.model.api.listallpokes.response.ListAllPokesResponse;
 import com.qori.tech.ux.pokes.util.header.ApiHeader;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,14 +11,17 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.DataBinder;
-import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Mono;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 
 /**
  * <p> This class is responsible for search the pokemon.</p>
@@ -62,14 +64,12 @@ public class ListAllController {
   }
 
   /**
-   * This method is to get all the pokemons.
+   * This method is to get all the pokémon.
    *
    * @param apiHeader ApiHeader.
-   * @param listAllPokesRequest ListAllRequest.
    * @return {link ResponseMessage}
    */
   @GetMapping(
-      consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   @Operation(
       tags = "AccountsResponse",
@@ -98,9 +98,8 @@ public class ListAllController {
               content = @Content(schema = @Schema(implementation = Exception.class)))
       })
   @ResponseStatus(HttpStatus.OK)
-  public Mono<ResponseEntity<ListAllPokesResponse>> getAll(
-      @ParameterObject @RequestHeader ApiHeader apiHeader,
-      @RequestBody ListAllPokesRequest listAllPokesRequest) {
-    return listAllService.process(apiHeader, listAllPokesRequest);
+  public Flux<ResponseEntity<ListAllPokesResponse>> getAll(
+      @RequestHeaderModel(ApiHeader.class) ApiHeader apiHeader) {
+    return listAllService.process(apiHeader);
   }
 }

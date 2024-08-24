@@ -1,18 +1,15 @@
 package com.qori.tech.ux.pokes.framework.header.manager;
 
-
-import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import org.springframework.stereotype.Component;
 
 /**
- * <p> This annotation is used to manage the headers of the requests.</p>
- * <p><b>Class</b>: RequestHeaderObject</p>
+ * <p> This annotation is used to manage the headers of the requests base a model.</p>
+ * <p><b>Class</b>: RequestHeaderModel</p>
  * <p><b>Package</b>: com.qoritech.logic.accounts.framework.header.manager</p>
- * <p><b>Project</b>: Create-Account</p>
+ * <p><b>Project</b>: QoriTech-Pokes</p>
  * <p><b>Version</b>: 1.0.0</p>
  * <p><b>Company</b>: QoriTech Solutions Company</p>
  * <p><b>Creation Date</b>: 2024-06-15</p>
@@ -35,35 +32,6 @@ import org.springframework.stereotype.Component;
 
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
-@Documented
-@Component
-public @interface RequestHeader {
-
-  /**
-   * This method is used to get the name of the header.
-   *
-   * @return name
-   */
-  String name() default "";
-
-  /**
-   * This method is used to get the value of the header.
-   *
-   * @return value
-   */
-  String value() default "";
-
-  /**
-   * This method is used to get if it is required.
-   *
-   * @return required
-   */
-  boolean required() default true;
-
-  /**
-   * This method is used to set the default value.
-   *
-   * @return description
-   */
-  String defaultValue() default "";
+public @interface RequestHeaderModel {
+    Class<?> value();
 }

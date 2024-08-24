@@ -16,11 +16,12 @@
 	<description>This project is my niece</description>
 	<!-- <properties> -->
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 		<spring-cloud.version>2023.0.2</spring-cloud.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<checkstyle.config.location>config/checkstyle.xml</checkstyle.config.location>
+		<checkstyle.config.location>checkstyle.xml</checkstyle.config.location>
+		<checkstyle.suppressions.location>checkstyle-suppressions.xml</checkstyle.suppressions.location>
 	</properties>
 
 	<inceptionYear>2024</inceptionYear>
@@ -72,10 +73,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
-		<dependency>
+		<!--<dependency>
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-tracing-bridge-brave</artifactId>
-		</dependency>
+		</dependency>-->
 		<dependency>
 			<groupId>io.zipkin.reporter2</groupId>
 			<artifactId>zipkin-reporter-brave</artifactId>
@@ -128,17 +129,11 @@
 			<version>1.6.9</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-docker-compose</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
+		<!--<dependency>
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-registry-prometheus</artifactId>
 			<scope>runtime</scope>
-		</dependency>
+		</dependency>-->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -215,6 +210,46 @@
 			<artifactId>rxjava</artifactId>
 			<version>3.1.8</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>6.6</version>
+		</dependency>
+		<!-- THIS IS FOR OPENAPI TO POKEAPI-->
+
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>2.0.1.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.joschi.jackson</groupId>
+			<artifactId>jackson-datatype-threetenbp</artifactId>
+			<version>2.9.10</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.15.0</version>
+		</dependency>
+		<!--<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.redisson</groupId>
+			<artifactId>redisson-spring-boot-starter</artifactId>
+			<version>3.17.4</version>
+		</dependency>
+		<dependency>
+			<groupId>io.opentelemetry.instrumentation</groupId>
+			<artifactId>opentelemetry-spring-boot-starter</artifactId>
+			<version>2.6.0</version>
+		</dependency>-->
 
 	</dependencies>
 	<dependencyManagement>
@@ -235,6 +270,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<mainClass>com.qori.tech.ux.pokes.PokesApiConnectionApplication</mainClass>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
@@ -270,6 +306,7 @@
 
 					<consoleOutput>true</consoleOutput>
 					<configLocation>${checkstyle.config.location}</configLocation>
+					<suppressionsLocation>${checkstyle.suppressions.location}</suppressionsLocation>
 					<propertyExpansion>checkstyle.xml</propertyExpansion>
 				</configuration>
 			</plugin>
@@ -287,6 +324,39 @@
 					</delimiters>
 					<useDefaultDelimiters>false</useDefaultDelimiters>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>io.swagger.codegen.v3</groupId>
+				<artifactId>swagger-codegen-maven-plugin</artifactId>
+				<version>3.0.42</version>
+				<executions>
+					<execution>
+						<id>api-generate-help</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<phase>generate-resources</phase>
+						<configuration>
+							<inputSpec>${project.basedir}/src/main/resources/swagger/clients/poke-api.yml</inputSpec>
+							<language>spring</language>
+							<configHelp>true</configHelp>
+						</configuration>
+					</execution>
+					<execution>
+						<id>api-generate</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<phase>generate-sources</phase>
+						<configuration>
+							<!-- input api definition -->
+							<inputSpec>${project.basedir}/src/main/resources/swagger/clients/poke-api.yml</inputSpec>
+							<language>spring</language>
+							<output>${project.build.directory}/generated-sources/openapi/poke/api</output>
+							<ignoreFileOverride>${project.basedir}/.swagger-codegen-ignore</ignoreFileOverride>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 		<resources>

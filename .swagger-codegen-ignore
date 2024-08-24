@@ -1,0 +1,4 @@
+target/generated-sources/openapi/poke/api/src/main/java/io/swagger/api/
+target/generated-sources/openapi/poke/api/src/main/java/io/swagger/configuration/
+target/generated-sources/openapi/poke/api/src/main/java/io/swagger/Swagger2SpringBoot.java
+target/generated-sources/openapi/poke/api/src/main/java/io/swagger/RFC3339DateFormat.java

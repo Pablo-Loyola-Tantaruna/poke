@@ -1,7 +1,9 @@
 package com.qori.tech.ux.pokes;
 
+import com.qori.tech.ux.pokes.config.ApplicationProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 /**
  * <p> This is the main class of the application.</p>
@@ -29,6 +31,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 
 @SpringBootApplication
+@EnableConfigurationProperties(ApplicationProperties.class)
 public class PokesApiConnectionApplication {
 
   /**

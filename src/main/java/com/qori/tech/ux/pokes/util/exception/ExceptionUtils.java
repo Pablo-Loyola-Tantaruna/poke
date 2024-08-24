@@ -42,6 +42,13 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 public class ExceptionUtils extends RuntimeException {
 
+  /**
+   * Method to get API exception builder from HTTP call.
+   *
+   * @param ex Throwable
+   * @param component String
+   * @return {link ApiException}
+   */
   public static ApiException getApiExceptionBuilderFromHttpCall(Throwable ex, String component) {
     ErrorCategory errorCategory;
 

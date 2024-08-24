@@ -1,0 +1,15 @@
+version: "3"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: qori-tech-ux-pokes
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=local
+      - SPRING_MVC_CORS_ALLOWED-ORIGINS=*
+      - SPRING_MVC_CORS_ALLOWED-METHODS=GET,POST,PUT,DELETE,OPTIONS
+      - SPRING_MVC_CORS_ALLOWED-HEADERS=*
+      - SPRING_MVC_CORS_ALLOW-CREDENTIALS=false

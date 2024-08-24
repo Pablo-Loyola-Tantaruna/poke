@@ -1,11 +1,11 @@
 package com.qori.tech.ux.pokes.framework.header.config;
 
-import com.qoritech.logic.accounts.framework.header.RequestHeaderResolve;
+import com.qori.tech.ux.pokes.framework.header.RequestHeaderResolve;
+import java.util.List;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.List;
 
 /**
  * <p> This class is responsible for configuring the headers of the HTTP requests.</p>

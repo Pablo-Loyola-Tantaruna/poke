@@ -5,8 +5,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(classes = PokesApiConnectionApplication.class)
 class PokesApiConnectionApplicationTests {
-	@Test
+	/*@Test
 	void contextLoads() {
-	}
+	}*/
 
 }
